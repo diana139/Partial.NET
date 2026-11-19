@@ -1,7 +1,9 @@
-using RoomHub.Api.Endpoints;
-using RoomHub.Api.Middleware;
-using RoomHub.Api.Repositories;
-using RoomHub.Api.Services;
+using RoomHub.Api.Features.Bookings.CancelBooking;
+using RoomHub.Api.Features.Bookings.CreateBooking;
+using RoomHub.Api.Features.Bookings.GetBooking;
+using RoomHub.Api.Features.Rooms.CreateRoom;
+using RoomHub.Api.Features.Rooms.GetRoom;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
