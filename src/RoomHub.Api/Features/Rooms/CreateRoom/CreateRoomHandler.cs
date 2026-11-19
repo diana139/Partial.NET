@@ -4,7 +4,7 @@ using RoomHub.Api.Models.Common;
 
 namespace RoomHub.Api.Features.Rooms.CreateRoom;
 
-public sealed class CreateRoomHandler(IRoomRepository rooms)
+public sealed class CreateRoomHandler(IRoomRepository rooms, IUnitOfWork unitOfWork)
     : ICommandHandler<CreateRoomCommand, CreateRoomResponse>
 {
     public async Task<Result<CreateRoomResponse>> HandleAsync(CreateRoomCommand command, CancellationToken ct)
@@ -15,6 +15,7 @@ public sealed class CreateRoomHandler(IRoomRepository rooms)
 
         var room = roomResult.Value;
         await rooms.AddAsync(room, ct);
+        await unitOfWork.SaveChangesAsync(ct);
 
         return Result<CreateRoomResponse>.Success(new CreateRoomResponse(room.Id, room.Name, room.Capacity));
     }

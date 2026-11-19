@@ -4,7 +4,7 @@ using RoomHub.Api.Models.Common;
 
 namespace RoomHub.Api.Features.Bookings.CancelBooking;
 
-public sealed class CancelBookingHandler(IBookingRepository bookings)
+public sealed class CancelBookingHandler(IBookingRepository bookings, IUnitOfWork unitOfWork)
     : ICommandHandler<CancelBookingCommand, CancelBookingResponse>
 {
     public async Task<Result<CancelBookingResponse>> HandleAsync(CancelBookingCommand command, CancellationToken ct)
@@ -17,6 +17,8 @@ public sealed class CancelBookingHandler(IBookingRepository bookings)
         var cancelResult = booking.Cancel();
         if (cancelResult.IsFailure)
             return Result<CancelBookingResponse>.Failure(cancelResult.Error);
+
+        await unitOfWork.SaveChangesAsync(ct);
 
         return Result<CancelBookingResponse>.Success(
             new CancelBookingResponse(booking.Id, booking.Status.ToString()));

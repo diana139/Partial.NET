@@ -7,6 +7,7 @@ namespace RoomHub.Api.Features.Bookings.CreateBooking;
 public sealed class CreateBookingHandler(
     IRoomRepository rooms,
     IBookingRepository bookings,
+    IUnitOfWork unitOfWork,
     TimeProvider timeProvider)
     : ICommandHandler<CreateBookingCommand, CreateBookingResponse>
 {
@@ -29,6 +30,7 @@ public sealed class CreateBookingHandler(
 
         var booking = bookingResult.Value;
         await bookings.AddAsync(booking, ct);
+        await unitOfWork.SaveChangesAsync(ct);
 
         return Result<CreateBookingResponse>.Success(
             new CreateBookingResponse(booking.Id, booking.RoomId, booking.Status.ToString()));
