@@ -1,6 +1,6 @@
-﻿namespace DefaultNamespace;
+namespace RoomHub.Api.Models;
 
-public class IUnitOfWork
+public interface IUnitOfWork
 {
-    
+    Task<int> SaveChangesAsync(CancellationToken ct = default);
 }
