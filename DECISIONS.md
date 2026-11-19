@@ -6,7 +6,7 @@ An unanswered question gives 0 points.
 
 ## 1. A rule you moved
 Pick one business rule (R1–R8). In which file did it live in the starter and in which file does it live now? Why there?
-
+R1  lived in RoomService, now it lives in Models/Room.cs
 _(your answer here)_
 
 ## 2. Result instead of an exception
@@ -16,7 +16,7 @@ _(your answer here)_
 
 ## 3. Who knows about EF Core?
 Which classes in your project know about EF Core and which do not? What do you gain and what do you pay with Repository + Unit of Work?
-
+domeniul room booking result error si interfetele iRoomRep IBookingRepo si IunitOfWork
 _(your answer here)_
 
 ## 4. The flow of a request
