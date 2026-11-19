@@ -65,6 +65,15 @@ public class Booking
 
         return Result<Booking>.Success(new Booking(Guid.NewGuid(), room.Id, bookedBy.Trim(), startUtc, endUtc, attendees));
     }
-    
+
+    // R8
+    public Result<Booking> Cancel()
+    {
+        if (Status == BookingStatus.Cancelled)
+            return Result<Booking>.Failure(Error.Conflict("Booking.AlreadyCancelled", "The booking is already cancelled."));
+
+        Status = BookingStatus.Cancelled;
+        return Result<Booking>.Success(this);
+    }
 }
 
